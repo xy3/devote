@@ -23,6 +23,7 @@ Once all the votes have been cast and the election is closed, the software will 
 
 ### Programming languages
 *  JavaScript (Web3, ReactJS)
+*  NodeJS
 *  Solidity
 *  SQL
 *  Python

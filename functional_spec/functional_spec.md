@@ -386,7 +386,6 @@ Metamask will be used to interact with the local Ethereum blockchain. It acts as
 In this section, we further illustrate the voting system with the use of a data-flow diagram and a context diagram.
 
 Below is a Data Flow Diagram of the entire decentralized voting system. It illustrates the processes that users of the system can make, and how the data is used in the system.
-<img src="https://drive.google.com/file/d/1pjzvzvmnWgY9Tn6spXXAcJEoDP5vM6uY/view?usp=sharing">
 
 
 <h2>Context Diagram for Election Privileges</h2>
@@ -396,6 +395,7 @@ Below is a Data Flow Diagram of the entire decentralized voting system. It illus
 <h1>6. Preliminary Schedule</h1>
 
 Below is a preliminary Gantt chart illustrating our aim for start and end dates for the project tasks and goals. They could possibly change along the way due to certain tasks being more or less difficult than we have estimated.
+<img src="https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/gantt.png" width="1000">
 
 
 <h1>7. Appendices</h2>

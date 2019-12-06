@@ -390,7 +390,7 @@ Below is a Data Flow Diagram of the entire decentralized voting system. It illus
 
 
 <h2>Context Diagram for Election Privileges</h2>
-<img src="https://drive.google.com/file/d/1M_dNEqrqWGW5A9Ma816hDCp9S-wcyiJT/view?usp=sharing">
+<img src="https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/context_diagram.png" width="700">
 
 
 <h1>6. Preliminary Schedule</h1>

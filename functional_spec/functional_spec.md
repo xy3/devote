@@ -402,34 +402,22 @@ Below is a preliminary Gantt chart illustrating our aim for start and end dates 
 <h1>7. Appendices</h2>
 
 
-Ethereum developer resources
-
-
+**Ethereum developer resources** <br></br>
 [https://ethereum.org/developers/](https://ethereum.org/developers/)
 
 
-Solidity documentation
-
-
+**Solidity documentation** <br></br>
 [https://solidity.readthedocs.io/](https://solidity.readthedocs.io/)
 
 
-Metamask
-
-
+**Metamask** <br></br>
 [https://metamask.io/](https://metamask.io/)
 
 
-Ethereum
-
-
+**Ethereum** <br></br>
 [https://ethereum.org/](https://ethereum.org/)
 
 
-Web3 JS documentation
-
-
+**Web3 JS documentation** <br></br>
 [https://web3js.readthedocs.io/](https://web3js.readthedocs.io/)
 
-
-<!-- Docs to Markdown version 1.0β17 -->

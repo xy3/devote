@@ -386,9 +386,11 @@ Metamask will be used to interact with the local Ethereum blockchain. It acts as
 In this section, we further illustrate the voting system with the use of a data-flow diagram and a context diagram.
 
 Below is a Data Flow Diagram of the entire decentralized voting system. It illustrates the processes that users of the system can make, and how the data is used in the system.
+<img src="https://drive.google.com/file/d/1pjzvzvmnWgY9Tn6spXXAcJEoDP5vM6uY/view?usp=sharing">
 
 
 <h2>Context Diagram for Election Privileges</h2>
+<img src="https://drive.google.com/file/d/1M_dNEqrqWGW5A9Ma816hDCp9S-wcyiJT/view?usp=sharing">
 
 
 <h1>6. Preliminary Schedule</h1>

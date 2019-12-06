@@ -11,31 +11,29 @@
 
 # Table of Contents
 
-| Section | Page |
-| :------------------------------------------------- | ----:|
-| **1. Introduction**  | 2 |
-| **1.1**  Overview | 2 |
-| **1.2**  Business Context | 2 |
-| **1.3**  Glossary | 2 |
-| **2. General Description** | 4 |
-| **2.1**  Product / System Function | 4 |
-| **2.2**  User Characteristics and Objectives | 4 |
-| **2.3**  Operational Scenarios | 5 |
-| **2.4**  Constraints | 6 |
-| **3. Functional Requirements** | 7 |
-| **3.1**  Login | 7 |
-| **3.2**  Register | 8 |
-| **3.3**  Account Privilege | 9 |
-| **3.4**  Vote | 9 |
-| **3.5**  View Vote | 10 |
-| **3.6**  Create Election | 11 |
-| **3.7**  Search & View Elections | 12 |
-| **3.8**  End Election | 13 |
-| **3.9**  Group Membership | 13 |
-| **4. System Architecture** | 14 |
-| **5. High-Level Design** | 15 |
-| **6. Preliminary Schedule** | 17 |
-| **7. Appendices** | 18 |
+1.  **Introduction**
+    1.1. Overview 
+    1.2. Business Context
+    1.3. Glossary
+2.  **General Description**
+    2.1.  Product / System Functions
+    2.2.  User Characteristics and Objectives
+    2.3.  Operational Scenarios
+    2.4.  Constraints
+3.  **Functional Requirements**
+    3.1.  Login
+    3.2.  Register
+    3.3.  Account Privileges
+    3.4.  Vote
+    3.5.  View Vote
+    3.6.  Create Election
+    3.7.  Search & View Elections
+    3.8.  End Election
+    3.9.  Group Membership
+4.  **System Architecture**
+5.  **High-Level Design**
+6.  **Preliminary Schedule**
+7.  **Appendices**
 
 
 

@@ -387,6 +387,7 @@ In this section, we further illustrate the voting system with the use of a data-
 
 Below is a Data Flow Diagram of the entire decentralized voting system. It illustrates the processes that users of the system can make, and how the data is used in the system.
 
+<img src="https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/Devote_DFD.png" height="500">
 
 <h2>Context Diagram for Election Privileges</h2>
 <img src="https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/context_diagram.png" width="700">

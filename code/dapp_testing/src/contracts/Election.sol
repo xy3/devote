@@ -5,8 +5,20 @@ contract Election {
     struct Candidate {
         uint id;
         string name;
+        string position;
         uint voteCount;
+        string status;
+        // uint election_id;
+        // string election_status; // open or closed
+        // string election_result; // elected or not
     }
+
+    event CandidateAdded(
+        uint id,
+        string name,
+        string position,
+        address payable author
+    );
 
 
     // Voters mapping (who has voted)
@@ -18,14 +30,16 @@ contract Election {
 
     // Constructor
     constructor() public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+        // addCandidate("Candidate 1", "Chair");
+        // addCandidate("Candidate 2", "Helpdesk");
     }
 
-    function addCandidate(string memory _name) private {
+    function addCandidate(string memory _name, string memory _position) public {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, _position, 0, "Open");
+        emit CandidateAdded(candidatesCount, _name, _position, msg.sender);
     }
+
 
     function vote(uint _candidateId) public {
         // Require that they haven't voted before

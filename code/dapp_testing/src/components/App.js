@@ -22,12 +22,14 @@ class App extends Component {
 	}
 
 	async loadWeb3() {
+		const options = {transactionConfirmationBlocks: 1}
+
 		if (window.ethereum) {
-			window.web3 = new Web3(window.ethereum)
+			window.web3 = new Web3(window.ethereum, undefined, {transactionConfirmationBlocks: 1})
 			await window.ethereum.enable()
 		}
 		else if (window.web3) {
-			window.web3 = new Web3(window.web3.currentProvider)
+			window.web3 = new Web3(window.web3.currentProvider, undefined, {transactionConfirmationBlocks: 1})
 		}
 		else {
 			window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
@@ -45,40 +47,85 @@ class App extends Component {
 		const networkID = await web3.eth.net.getId()
 		const networkData = Election.networks[networkID]
 		
-		if (networkData) {
-			console.log(networkID)
+		if (!networkData) {
+
+			alert("You're not on the right network! Read the voting instructions below.")
+
+		} else {
+
+			// Load the election contract & network ID
 			const election = web3.eth.Contract(Election.abi, networkData.address)
 			this.setState({ election })
 			this.setState({ networkID })
-		} else {
-			alert("You're not on the right network! Read the voting instructions below.")
+
+			await this.getCandidates()
+			this.setState({loading: false})
+
 		}
+	}
+
+	async getCandidates() {
+		// Get all candidates
+		this.setState({ loading: true })
+		
+		const candidateCount = await this.state.election.methods.candidatesCount().call()
+		var candidates = []
+
+		for (var i = 1; i <= candidateCount; i++) {
+			const candidate = await this.state.election.methods.candidates(i).call()
+			candidates = [...candidates, candidate]
+			// this.setState({ 
+			// 	candidates: [...this.state.candidates, candidate]
+			// })
+		}
+
+		this.setState({candidates: candidates})
+	}
+
+	addCandidate(candidateName, candidatePosition) {
+		this.state.election.methods.addCandidate(candidateName, candidatePosition).send({ from: this.state.account })
+		.once('receipt', (receipt) => {
+			this.getCandidates()
+			this.setState({loading: false})
+		})
+		return true
 	}
 
 	constructor(props) {
 		super(props)
 		this.state = {
 			account: '',
-			networkID: ''
+			networkID: '',
+			candidates: [],
+			election: null,
+			loading: true
 		}
+		this.addCandidate = this.addCandidate.bind(this)
 	}
 
 	render() {
-		// let body
-
-		// body = <Home account={this.state.account} />
-
 		return (
 			<div>
 				<Navbar logo={logo} />
 				<section>
 					<div className="container main-body">
 						<div className="row">
-							<SessionInfo society={"Society Title"} account={this.state.account} network={this.state.networkID}/>
+							<SessionInfo 
+								society={"Society Title"} 
+								account={this.state.account} 
+								network={this.state.networkID}
+							/>
 						</div>
 						<div className="row">
-							<Elections />
-							<ElectionForm />
+							{ this.state.loading 
+								? <div className="col-md-7">Loading....</div>
+								: <Elections 
+									candidates={this.state.candidates}
+								/>
+							}
+							<ElectionForm 
+								addCandidate={this.addCandidate}
+							/>
 						</div>
 						<div className="row">
 							<VotingResults />

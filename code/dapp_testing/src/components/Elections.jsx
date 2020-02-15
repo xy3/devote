@@ -17,34 +17,17 @@ class Elections extends Component {
     				</tr>
     			</thead>
     			<tbody>
-    				<tr>
-    					<th scope="row">1</th>
-    					<td>Treasurer</td>
-    					<td>Joe Bloggs</td>
-    					<td>11</td>
-    					<td>Elected</td>
-    				</tr>
-    				<tr>
-    					<th scope="row">2</th>
-    					<td>Chair</td>
-    					<td>Joe Bloggs</td>
-    					<td>11</td>
-    					<td>Not Elected</td>
-    				</tr>
-    				<tr>
-    					<th scope="row">3</th>
-    					<td>Designer</td>
-    					<td>Joe Bloggs</td>
-    					<td>11</td>
-    					<td>Open</td>
-    				</tr>
-    				<tr>
-    					<th scope="row">4</th>
-    					<td>Designer</td>
-    					<td>Joe Bloggs</td>
-    					<td>11</td>
-    					<td>Open</td>
-    				</tr>
+    					{ this.props.candidates.map((candidate, key) => {
+    						return (
+		    					<tr key={key}>
+    								<th scope="row">{key}</th>
+    								<td>{candidate.position}</td>
+    								<td>{candidate.name}</td>
+    								<td>{ window.web3.utils.fromWei(candidate.voteCount.toString()) }</td>
+    								<td>{candidate.status}</td>
+								</tr>
+    						)
+    					})}
     			</tbody>
     		</table>
     		<button type="submit"><span>Refresh</span></button>

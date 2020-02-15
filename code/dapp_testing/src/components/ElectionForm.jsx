@@ -7,17 +7,34 @@ class ElectionForm extends Component {
             <h2>New Election</h2>
             <hr />
             <div className="electionform">
-                <form>
+                <form id="newCandidateForm" onSubmit={(event) => {
+                    event.preventDefault()
+                    const candidateName = this.candidateName.value
+                    const candidatePosition = this.candidatePosition.value
+                    if (this.props.addCandidate(candidateName, candidatePosition)) {
+                        event.target.reset();
+                    }
+                }}>
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-3 col-form-label">Name</label>
                         <div className="col-sm-9">
-                            <input type="text" placeholder="Name" />
+                            <input
+                                id="candidateName"
+                                type="text"
+                                ref={(input) => {this.candidateName = input}}
+                                placeholder="Name"
+                            />
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="position" className="col-sm-3 col-form-label">Position</label>
                         <div className="col-sm-9">
-                            <input type="text" placeholder="Position" />
+                            <input 
+                                id="candidatePosition"
+                                type="text"
+                                ref={(input) => {this.candidatePosition = input}}
+                                placeholder="Position"
+                            />
                         </div>
                     </div>
                     <div className="form-group row">
@@ -27,7 +44,7 @@ class ElectionForm extends Component {
                         </div>
                     </div>
                 </form>
-                <button type="submit"><span>Submit</span></button>
+                <button type="submit" form="newCandidateForm"><span>Submit</span></button>
             </div>
         </div>
     );

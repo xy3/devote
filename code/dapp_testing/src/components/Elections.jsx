@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 
 class Elections extends Component {
-  render() {
-    return (
+	
+	openElection = (election) => {
+		this.props.changeElection(election.electionId.toNumber())
+		this.props.renderElection()
+	}
+	
+	render() {
+    	return (
     	<div className="col-md-7">
     		<h2>Elections in Progress</h2>
     		<hr />
@@ -13,7 +19,7 @@ class Elections extends Component {
     					<th scope="col">Name</th>
     					<th scope="col">Candidates</th>
     					<th scope="col">Status</th>
-						<th scope="col" class="viewElectionButton">View</th>
+						<th scope="col" className="viewElectionButton">View</th>
     				</tr>
     			</thead>
     			<tbody>
@@ -24,7 +30,9 @@ class Elections extends Component {
 							<td>{election.name}</td>
 							<td>{election.totalCandidates.toNumber()}</td>
 							<td>{election.electionStatus.toString()}</td>
-							<td class="viewElectionButton"><button class="viewElection">View</button></td>
+							<td className="viewElectionButton">
+								<button onClick={() => this.openElection(election)} className="viewElection">View</button>
+							</td>
 						</tr>
 					)
 					})}
@@ -39,19 +47,3 @@ class Elections extends Component {
 }
 
 export default Elections;
-
-// Election.deployed().then(function(i) {app=i;})
-
-/*
-    					{ this.props.candidates.map((candidate, key) => {
-    						return (
-		    					<tr key={key}>
-    								<th scope="row">{candidate.id.toNumber()}</th>
-    								<td>{candidate.position}</td>
-    								<td>{candidate.name}</td>
-    								<td>{ window.web3.utils.fromWei(candidate.voteCount.toString()) }</td>
-    								<td>{candidate.status}</td>
-								</tr>
-    						)
-    					})}
- */

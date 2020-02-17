@@ -4,7 +4,7 @@ class ElectionForm extends Component {
   render() {
     return (
         <div className="col-md-5">
-            <h2>New Election</h2>
+            <h2>Create Election</h2>
             <hr />
             <div className="electionform">
                 <form id="newCandidateForm" onSubmit={(event) => {

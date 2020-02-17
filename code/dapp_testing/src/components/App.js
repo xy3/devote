@@ -11,6 +11,8 @@ import Elections from './Elections'
 import ElectionForm from './ElectionForm'
 import VotingResults from './VotingResults'
 import Instructions from './Instructions'
+import ViewElection from './ViewElection'
+import VotingForm from './VotingForm'
 
 
 
@@ -63,6 +65,7 @@ class App extends Component {
 
 			await this.getCandidates()
 			await this.getElections()
+			await this.renderElection()
 			this.setState({loading: false})
 
 		}
@@ -85,6 +88,10 @@ class App extends Component {
 		this.setState({elections: elections})
 	}
 
+	async changeElection(electionId) {
+		this.setState({ displayedElection: electionId});
+	}
+
 	async getCandidates() {
 		// Get all candidates
 		this.setState({ loading: true })
@@ -101,6 +108,23 @@ class App extends Component {
 		}
 
 		this.setState({candidates: candidates})
+	}
+
+	async renderElection() {
+		// Get all candidates
+		this.setState({displayedCandidates: []})
+		
+		const candidateCount = await this.state.election.methods.candidatesCount().call()
+		var candidates = []
+
+		for (var i = 1; i <= candidateCount; i++) {
+			const candidate = await this.state.election.methods.candidates(i).call()
+			if (candidate.electionId.toNumber() == this.state.displayedElection) {
+				this.state.displayedCandidates = [...this.state.displayedCandidates, candidate]
+			}
+		}
+
+		this.setState({displayedCandidates: this.state.displayedCandidates})
 	}
 
 	addCandidate(candidateName, candidatePosition) {
@@ -121,6 +145,14 @@ class App extends Component {
 		return true
 	}
 
+	addVote(candidateId) {
+		this.state.election.methods.vote(candidateId).send({ from: this.state.account })
+		.once('receipt', (receipt) => {
+			this.renderElection()
+		})
+		return true
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -129,41 +161,62 @@ class App extends Component {
 			candidates: [],
 			elections: [],
 			election: null,
-			loading: true
+			loading: true,
+			displayedElection: 1,
+			displayedCandidates: []
 		}
+
 		this.addElection = this.addElection.bind(this)
 		this.addCandidate = this.addCandidate.bind(this)	
+		this.changeElection = this.changeElection.bind(this)
+		this.renderElection = this.renderElection.bind(this)
+		this.addVote = this.addVote.bind(this)
 	}
 
 	render() {
 		return (
 			<div>
 				<Navbar logo={logo} />
-				<section>
+				<section className="section">
 					<div className="container main-body">
 						<div className="row">
 							<SessionInfo 
-								society={"Society Title"} 
 								account={this.state.account} 
 								network={this.state.networkID}
 							/>
 						</div>
-						<div className="row">
+						<div className="row" id="electionsList">
 							{ this.state.loading 
-								? <div className="col-md-7">Loading....</div>
-								: <Elections 
-									elections={this.state.elections}
+								? <div className="col-md-7">Loading Election...</div>
+								: <ViewElection 
+									candidates={this.state.displayedCandidates}
+									displayedElection={this.state.displayedElection}
+									elections={this.state.elections} 
+									renderElection={this.renderElection}
 								/>
 							}
-							<ElectionForm 
-								addElection={this.addElection}
-								
-							/>
+							<div className="votingForm">
+								<VotingForm 
+									candidates={this.state.displayedCandidates}
+									addVote={this.addVote}
+								/>
+							</div>
 						</div>
 						<div className="row">
-							<VotingResults />
-							<Instructions />
+							{ this.state.loading 
+								? <div className="col-md-7">Loading Election List...</div>
+								: <Elections 
+									elections={this.state.elections} 
+									changeElection={this.changeElection}
+									renderElection={this.renderElection}
+								/>
+							}
+							<ElectionForm addElection={this.addElection} />
 						</div>
+						
+						{/*<div className='row'>
+							<Instructions />
+						</div>*/}
 					</div>
 				</section>
 			</div>
@@ -172,37 +225,3 @@ class App extends Component {
 }
 
 export default App;
-
-/*
-		Election.deployed().then((electionInstance) => {
-			this.electionInstance = electionInstance
-			this.watchEvents()
-			this.electionInstance.candidatesCount().then((candidatesCount) => {
-				for (var i = 1; i <= candidatesCount; i++) {
-				  this.electionInstance.candidates(i).then((candidate) => {
-					const candidates2 = [...this.state.candidates]
-					candidates2.push({
-					  id: candidate[0],
-					  name: candidate[1],
-					  voteCount: candidate[2],
-					  electionId: candidate[3]
-					});
-					this.setState({ candidates2: candidates2 })
-				  });
-				}
-			  })
-			this.electionInstance.electionCount().then((electionCount) => {
-				for (var i = 1; i <= electionCount; i++) {
-					this.electionInstance.elections(i).then((election) => {
-					const elections = [...this.state.elections]
-					elections.push({
-						id: election[0],
-						name: election[1],
-						totalCandidates: election[2]
-					});
-					this.setState({ elections: elections })
-					});
-				}
-			})
-		})
-* */

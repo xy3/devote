@@ -34,6 +34,7 @@ class App extends Component {
 		else {
 			window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
 		}
+		
 	}
 
 	async fetchAccount() {
@@ -46,6 +47,8 @@ class App extends Component {
 		const web3 = window.web3
 		const networkID = await web3.eth.net.getId()
 		const networkData = Election.networks[networkID]
+
+		const election = web3.eth.Contract(Election.abi, networkData.address)
 		
 		if (!networkData) {
 
@@ -59,9 +62,27 @@ class App extends Component {
 			this.setState({ networkID })
 
 			await this.getCandidates()
+			await this.getElections()
 			this.setState({loading: false})
 
 		}
+
+		//election.methods.addCandidate("Ciaran Palmer", "Guardian").send({from: this.state.account});
+	}
+
+	async getElections() {
+		// Get all elections
+		this.setState({ loading: true })
+		
+		const electionCount = await this.state.election.methods.electionCount().call()
+		var elections = []
+
+		for (var i = 1; i <= electionCount; i++) {
+			const election = await this.state.election.methods.elections(i).call()
+			elections = [...elections, election]
+		}
+
+		this.setState({elections: elections})
 	}
 
 	async getCandidates() {
@@ -90,6 +111,15 @@ class App extends Component {
 		})
 		return true
 	}
+	
+	addElection(electionName, initialCandidate) {
+		this.state.election.methods.addElection(electionName, initialCandidate).send({ from: this.state.account })
+		.once('receipt', (receipt) => {
+			this.getElections()
+			this.setState({loading: false})
+		})
+		return true
+	}
 
 	constructor(props) {
 		super(props)
@@ -97,10 +127,12 @@ class App extends Component {
 			account: '',
 			networkID: '',
 			candidates: [],
+			elections: [],
 			election: null,
 			loading: true
 		}
-		this.addCandidate = this.addCandidate.bind(this)
+		this.addElection = this.addElection.bind(this)
+		this.addCandidate = this.addCandidate.bind(this)	
 	}
 
 	render() {
@@ -120,11 +152,12 @@ class App extends Component {
 							{ this.state.loading 
 								? <div className="col-md-7">Loading....</div>
 								: <Elections 
-									candidates={this.state.candidates}
+									elections={this.state.elections}
 								/>
 							}
 							<ElectionForm 
-								addCandidate={this.addCandidate}
+								addElection={this.addElection}
+								
 							/>
 						</div>
 						<div className="row">
@@ -139,3 +172,37 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+		Election.deployed().then((electionInstance) => {
+			this.electionInstance = electionInstance
+			this.watchEvents()
+			this.electionInstance.candidatesCount().then((candidatesCount) => {
+				for (var i = 1; i <= candidatesCount; i++) {
+				  this.electionInstance.candidates(i).then((candidate) => {
+					const candidates2 = [...this.state.candidates]
+					candidates2.push({
+					  id: candidate[0],
+					  name: candidate[1],
+					  voteCount: candidate[2],
+					  electionId: candidate[3]
+					});
+					this.setState({ candidates2: candidates2 })
+				  });
+				}
+			  })
+			this.electionInstance.electionCount().then((electionCount) => {
+				for (var i = 1; i <= electionCount; i++) {
+					this.electionInstance.elections(i).then((election) => {
+					const elections = [...this.state.elections]
+					elections.push({
+						id: election[0],
+						name: election[1],
+						totalCandidates: election[2]
+					});
+					this.setState({ elections: elections })
+					});
+				}
+			})
+		})
+* */

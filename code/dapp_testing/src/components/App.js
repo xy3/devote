@@ -146,7 +146,7 @@ class App extends Component {
 	}
 
 	addVote(candidateId) {
-		this.state.election.methods.vote(candidateId).send({ from: this.state.account })
+		this.state.election.methods.vote(candidateId, this.state.displayedCandidates[0].electionId.toNumber()).send({ from: this.state.account })
 		.once('receipt', (receipt) => {
 			this.renderElection()
 		})

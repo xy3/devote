@@ -26,6 +26,7 @@ contract Election {
         string name;
         uint totalCandidates;
         string electionStatus;
+        mapping(address => bool) voters;
     }
 
     // Elections mapping
@@ -33,7 +34,7 @@ contract Election {
     uint public electionCount;
 
     // Voters mapping (who has voted)
-    mapping(address => bool) public voters;
+    //mapping(address => bool) public voters;
 
     // Candidate mapping
     mapping(uint => Candidate) public candidates;
@@ -66,17 +67,18 @@ contract Election {
         emit CandidateAdded(candidatesCount, _name, _position, msg.sender);
     }
 
-    function vote(uint _candidateId) public {
+    function vote(uint _candidateId, uint _electionId) public {
         // Require that they haven't voted before
-        require(!voters[msg.sender], "You have already cast a vote in this election");
+        //require(!voters[msg.sender], "You have already cast a vote in this election");
+        require(!elections[_electionId].voters[msg.sender], "You have already voted in this election.");
 
         // Require a valid candidate to vote on
-        require(_candidateId > 0 && _candidateId <= candidatesCount, "The candidate you tried to vote for doesn't exist");
+        require(_candidateId > 0 && _candidateId <= candidatesCount, "The candidate you tried to vote for doesn't exist.");
 
         // record that voter has voted
-        voters[msg.sender] = true;
-
+        //voters[msg.sender] = true;
         // update candidate vote count
         candidates[_candidateId].voteCount++;
+        elections[_electionId].voters[msg.sender] = true;
     }
 }

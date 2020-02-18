@@ -6,7 +6,7 @@ class VotingForm extends Component {
         <table className="table text-light main-table">
             <thead>
                 <tr>
-                    <th>Select Candidate and Click Vote</th>
+                    <th>Select a Candidate and click Vote</th>
                 </tr>
             </thead>
             <tbody>

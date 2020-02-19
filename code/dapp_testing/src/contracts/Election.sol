@@ -43,15 +43,15 @@ contract Election {
 
     // Constructor
     constructor() public {
-        addElection("Ciaran's Election");
-        addElection("Engineering Society");
+        addElection("Test Election 1");
+        addElection("Test Election 2");
 
-        addCandidate("John Todd", "NA", 1);
-        addCandidate("Rebecca Wilson", "NA", 1);
-        addCandidate("Jen Keogh", "NA", 1);
+        addCandidate("Test Candidate 1", "NA", 1);
+        addCandidate("Test Candidate 2", "NA", 1);
+        addCandidate("Test Candidate 3", "NA", 1);
 
-        addCandidate("Will Parker", "NA", 2);
-        addCandidate("Jack Black", "NA", 2);
+        addCandidate("Test Candidate 4", "NA", 2);
+        addCandidate("Test Candidate 5", "NA", 2);
     }
 
     function addElection(string memory _name) public {

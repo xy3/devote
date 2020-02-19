@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Web3 from 'web3'
 import Election from '../abis/Election.json'
 
-import '../scss/style.scss';
-import logo from '../img/logo.png'
-
-import Navbar from './Navbar'
 import SessionInfo from './SessionInfo'
 import Elections from './Elections'
 import ElectionForm from './ElectionForm'
@@ -13,14 +9,18 @@ import VotingResults from './VotingResults'
 import Instructions from './Instructions'
 import ViewElection from './ViewElection'
 import VotingForm from './VotingForm'
+import CandidateForm from './CandidateForm'
+import Loader from './Loader'
 
 
 
 class App extends Component {
 	async componentWillMount() {
-		await this.loadWeb3()
-		await this.fetchAccount()
-		await this.loadContracts()
+		var x = await this.loadWeb3()
+		if (x) {
+			await this.fetchAccount()
+			await this.loadContracts()
+		}
 	}
 
 	async loadWeb3() {
@@ -34,8 +34,12 @@ class App extends Component {
 			window.web3 = new Web3(window.web3.currentProvider, undefined, {transactionConfirmationBlocks: 1})
 		}
 		else {
-			window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+			window.alert('Non-Ethereum browser detected. You must install MetaMask to use Devote')
+
+			return false;
 		}
+
+		return true;
 		
 	}
 
@@ -63,7 +67,7 @@ class App extends Component {
 			this.setState({ election })
 			this.setState({ networkID })
 
-			await this.getCandidates()
+			// await this.getCandidates()
 			await this.getElections()
 			await this.renderElection()
 			this.setState({loading: false})
@@ -127,17 +131,17 @@ class App extends Component {
 		this.setState({displayedCandidates: this.state.displayedCandidates})
 	}
 
-	addCandidate(candidateName, candidatePosition) {
-		this.state.election.methods.addCandidate(candidateName, candidatePosition).send({ from: this.state.account })
+	addCandidate(candidateName, candidatePosition, electionId) {
+		this.state.election.methods.addCandidate(candidateName, candidatePosition, electionId).send({ from: this.state.account })
 		.once('receipt', (receipt) => {
-			this.getCandidates()
+			this.renderElection()
 			this.setState({loading: false})
 		})
 		return true
 	}
 	
-	addElection(electionName, initialCandidate) {
-		this.state.election.methods.addElection(electionName, initialCandidate).send({ from: this.state.account })
+	addElection(electionName) {
+		this.state.election.methods.addElection(electionName).send({ from: this.state.account })
 		.once('receipt', (receipt) => {
 			this.getElections()
 			this.setState({loading: false})
@@ -176,7 +180,6 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar logo={logo} />
 				<section className="section">
 					<div className="container main-body">
 						<div className="row">
@@ -187,7 +190,7 @@ class App extends Component {
 						</div>
 						<div className="row" id="electionsList">
 							{ this.state.loading 
-								? <div className="col-md-7">Loading Election...</div>
+								? <Loader />
 								: <ViewElection 
 									candidates={this.state.displayedCandidates}
 									displayedElection={this.state.displayedElection}
@@ -195,16 +198,22 @@ class App extends Component {
 									renderElection={this.renderElection}
 								/>
 							}
-							<div className="votingForm">
-								<VotingForm 
-									candidates={this.state.displayedCandidates}
-									addVote={this.addVote}
-								/>
+							<div className="col-md-5">
+							
+							<VotingForm 
+								candidates={this.state.displayedCandidates}
+								addVote={this.addVote}
+							/>
+
+							<CandidateForm
+								elections={this.state.elections}
+								addCandidate={this.addCandidate}
+							/>
 							</div>
 						</div>
 						<div className="row">
 							{ this.state.loading 
-								? <div className="col-md-7">Loading Election List...</div>
+								? <Loader />
 								: <Elections 
 									elections={this.state.elections} 
 									changeElection={this.changeElection}
@@ -219,6 +228,9 @@ class App extends Component {
 						</div>*/}
 					</div>
 				</section>
+				<footer>
+					<p>Made by Morgan & Palmer</p>
+				</footer>
 			</div>
 		);
 	}

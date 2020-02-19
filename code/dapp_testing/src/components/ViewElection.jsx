@@ -7,9 +7,13 @@ class ViewElection extends Component {
     
     render() {
         const {candidates, displayedElection, elections} = this.props
+        
         return (
             <div className="col-md-7">
-                <h2>[{displayedElection}] {elections[displayedElection-1].name}</h2> 
+                { elections.length
+                    ? <h2>[{displayedElection}] {elections[displayedElection-1].name}</h2> 
+                    : <h2>None</h2>
+                }
                 <hr />
                 <table className="table text-light main-table">
                     <thead>

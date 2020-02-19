@@ -4,14 +4,13 @@ class ElectionForm extends Component {
   render() {
     return (
         <div className="col-md-5">
-            <h2>Create Election</h2>
+            <h2>Create an Election</h2>
             <hr />
             <div className="electionform">
                 <form id="newCandidateForm" onSubmit={(event) => {
                     event.preventDefault()
                     const electionName = this.electionName.value;
-                    const initialCandidate = this.initialCandidate.value;
-                    if (this.props.addElection(electionName, initialCandidate)) {
+                    if (this.props.addElection(electionName)) {
                         event.target.reset();
                     }
                 }}>
@@ -26,25 +25,14 @@ class ElectionForm extends Component {
                             />
                         </div>
                     </div>
-                    {/*<div className="form-group row">
-                        <label htmlFor="position" className="col-sm-3 col-form-label">Position</label>
-                        <div className="col-sm-9">
-                            <input 
-                                id="candidatePosition"
-                                type="text"
-                                ref={(input) => {this.candidatePosition = input}}
-                                placeholder="Position"
-                            />
-                        </div>
-                    </div>*/}
                     <div className="form-group row">
-                        <label htmlFor="inintialCandidate" className="col-sm-3 col-form-label">First Candidate</label>
+                        <label htmlFor="society" className="col-sm-3 col-form-label">Society</label>
                         <div className="col-sm-9">
                             <input 
-                                id="initialCandidate"
+                                id="electionSociety"
                                 type="text"
-                                ref={(input) => {this.initialCandidate = input}}
-                                placeholder="First candidate"
+                                ref={(input) => {this.Society = input}}
+                                placeholder="Election Society"
                             />
                         </div>
                     </div>

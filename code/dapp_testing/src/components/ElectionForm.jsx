@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 
 class ElectionForm extends Component {
   render() {
+    const { addElection } = this.props
+
     return (
-        <div className="col-md-5">
+        <div className="col-md-20">
             <h2>Create an Election</h2>
             <hr />
             <div className="electionform">
                 <form id="newElectionForm" onSubmit={(event) => {
                     event.preventDefault()
                     const electionName = this.electionName.value;
-                    if (this.props.addElection(electionName)) {
+                    if (addElection(electionName)) {
                         event.target.reset();
                     }
                 }}>

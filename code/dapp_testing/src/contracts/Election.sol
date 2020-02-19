@@ -27,14 +27,15 @@ contract Election {
         uint totalCandidates;
         string electionStatus;
         mapping(address => bool) voters;
+
     }
 
     // Elections mapping
     mapping(uint => Elections) public elections;
     uint public electionCount;
 
-    // Voters mapping (who has voted)
-    //mapping(address => bool) public voters;
+    // Election Admins
+    mapping(uint => address) public admins;
 
     // Candidate mapping
     mapping(uint => Candidate) public candidates;
@@ -42,23 +43,26 @@ contract Election {
 
     // Constructor
     constructor() public {
-        // addElection("Ciaran's Election", "Ciaran Palmer");
-        // addElection("Engineering Society", "Paul Smith");
+        addElection("Ciaran's Election");
+        addElection("Engineering Society");
 
-        // addCandidate("John Todd", "NA", 1);
-        // addCandidate("Rebecca Wilson", "NA", 1);
-        // addCandidate("Jen Keogh", "NA", 1);
+        addCandidate("John Todd", "NA", 1);
+        addCandidate("Rebecca Wilson", "NA", 1);
+        addCandidate("Jen Keogh", "NA", 1);
 
-        // addCandidate("Will Parker", "NA", 2);
-        // addCandidate("Jack Black", "NA", 2);
+        addCandidate("Will Parker", "NA", 2);
+        addCandidate("Jack Black", "NA", 2);
     }
 
     function addElection(string memory _name) public {
         electionCount++;
         elections[electionCount] = Elections(electionCount, _name, 0, "Open");
+        admins[electionCount] = msg.sender;
     }
 
     function addCandidate(string memory _name, string memory _position, uint _electionId) public {
+        require(admins[_electionId] == msg.sender, "You do not have permissions to add candidates to this election.");
+
         candidatesCount ++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, _position, 0, "Running", _electionId);
         elections[_electionId].totalCandidates++;

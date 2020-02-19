@@ -19,19 +19,6 @@ import * as serviceWorker from './serviceWorker';
 // unregister() to register() below. Note this comes with some pitfalls.
 serviceWorker.register();
 
-
-
-const routing = (
-	<Router>
-		<Navbar logo={logo} />
-		<Switch>
-			<Route exact path="/" component={App} />
-			<Route path="/user" component={UserPage} />
-			<Route component={Notfound} />
-		</Switch>
-	</Router>
-)
-
-
 // ReactDOM.render(<App />, document.getElementById('root'));)
-ReactDOM.render(routing, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'));
+

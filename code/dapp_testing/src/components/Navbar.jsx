@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
-
 class Navbar extends Component {
   render() {
 	return (
@@ -11,8 +10,8 @@ class Navbar extends Component {
 				<img src={this.props.logo} alt="Devote Logo" width="200" />
 				</a>
 				<div className="nav-btns">
-					<Link to="/user" id='user-btn'><i className="fa fa-user"></i></Link>
-					<a id='menu-btn' href="#"><i className="fa fa-plus"></i></a>
+					<Link to="/account" id='user-btn'><i className="fa fa-user"></i></Link>
+					<Link to="/settings" id='menu-btn'><i className="fa fa-plus"></i></Link>
 				</div>
 			</div>
 		</nav>

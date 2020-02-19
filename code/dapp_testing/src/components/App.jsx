@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import Web3 from 'web3'
-import Election from '../abis/Election.json'
+import Web3 from 'web3';
+import Election from '../abis/Election.json';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import SessionInfo from './SessionInfo'
-import Elections from './Elections'
-import ElectionForm from './ElectionForm'
-import VotingResults from './VotingResults'
-import Instructions from './Instructions'
-import ViewElection from './ViewElection'
-import VotingForm from './VotingForm'
-import CandidateForm from './CandidateForm'
-import Loader from './Loader'
-
-
+import Home from './Home';
+import SessionInfo from './SessionInfo';
+import UserPage from './UserPage';
 
 class App extends Component {
 	async componentWillMount() {
@@ -69,14 +62,41 @@ class App extends Component {
 			// await this.getCandidates()
 			await this.renderElectionList()
 			await this.renderElection()
+			await this.getYourElections()
 			this.setState({loading: false})
 
 		}
 	}
 
+	async changeElection(electionId) {
+		this.setState({ loadingCandidates: true })
+		this.setState({ displayedElection: electionId})
+		this.setState({ loadingCandidates: false })
+	}
+
+	async renderElection() {
+		// Get all candidates
+		this.setState({ loadingCandidates: true })
+		this.setState({ displayedCandidates: [] })
+		
+		const candidateCount = await this.state.election.methods.candidatesCount().call()
+		var candidates = []
+		
+		for (var i = 1; i <= candidateCount; i++) {
+			const candidate = await this.state.election.methods.candidates(i).call()
+			if (candidate.electionId.toNumber() == this.state.displayedElection) {
+				this.state.displayedCandidates = [...this.state.displayedCandidates, candidate]
+			}
+		}
+
+		this.setState({ displayedCandidates: this.state.displayedCandidates })
+		this.setState({ loadingCandidates: false })
+	}
+
 	async renderElectionList() {
 		// Get all elections
 		this.setState({ loadingElections: true })
+		this.setState({ elections: [] })
 		
 		const electionCount = await this.state.election.methods.electionCount().call()
 		var elections = []
@@ -90,30 +110,24 @@ class App extends Component {
 		this.setState({loadingElections: false})
 	}
 
-	async changeElection(electionId) {
-		this.setState({ loadingCandidates: true })
-		this.setState({ displayedElection: electionId});
-		this.setState({ loadingCandidates: false })
-	}
-
-
-	async renderElection() {
-		// Get all candidates
-		this.setState({ loadingCandidates: true })
-		this.setState({displayedCandidates: []})
+	async getYourElections() {
+		this.setState({ loadingYourElections: true })
+		this.setState({ yourElections: [] })
 		
-		const candidateCount = await this.state.election.methods.candidatesCount().call()
-		var candidates = []
+		const electionCount = await this.state.election.methods.electionCount().call()
+		
+		var yourElections = []
 
-		for (var i = 1; i <= candidateCount; i++) {
-			const candidate = await this.state.election.methods.candidates(i).call()
-			if (candidate.electionId.toNumber() == this.state.displayedElection) {
-				this.state.displayedCandidates = [...this.state.displayedCandidates, candidate]
+		for (var i = 1; i <= electionCount; i++) {
+			const election = await this.state.election.methods.elections(i).call()
+			const admin = await this.state.election.methods.admins(election.electionId.toNumber()).call()
+			if(admin == this.state.account) {
+				yourElections = [...yourElections, election]
 			}
 		}
 
-		this.setState({displayedCandidates: this.state.displayedCandidates})
-		this.setState({ loadingCandidates: false })
+		this.setState({yourElections: yourElections})
+		this.setState({loadingYourElections: false})
 	}
 
 	addCandidate(candidateName, candidatePosition, electionId) {
@@ -141,84 +155,78 @@ class App extends Component {
 	}
 
 	constructor(props) {
-		super(props)
-		this.state = {
-			account: '',
-			networkID: '',
-			candidates: [],
-			elections: [],
+        super(props)
+        this.state = {
+            account: '',
+            networkID: '',
+            candidates: [],
+            elections: [],
 			election: null,
+			yourElections: [],
 			loadingElections: true,
-			loadingCandidates: true,
-			displayedElection: 1,
-			displayedCandidates: []
-		}
+			loadingYourElections: true,
+            loadingCandidates: true,
+            displayedElection: 1,
+            displayedCandidates: []
+        }
 
-		this.addElection = this.addElection.bind(this)
-		this.addCandidate = this.addCandidate.bind(this)	
-		this.changeElection = this.changeElection.bind(this)
-		this.renderElection = this.renderElection.bind(this)
-		this.renderElectionList = this.renderElectionList.bind(this)
+        this.addElection = this.addElection.bind(this)
+        this.addCandidate = this.addCandidate.bind(this)	
+        this.changeElection = this.changeElection.bind(this)
+        this.renderElection = this.renderElection.bind(this)
+        this.renderElectionList = this.renderElectionList.bind(this)
 		this.addVote = this.addVote.bind(this)
-	}
+		this.getYourElections = this.getYourElections.bind(this)
+    }
 
 	render() {
-		return (
-			<div>
-				<section className="section">
-					<div className="container main-body">
-						<div className="row">
-							<SessionInfo 
-								account={this.state.account} 
-								network={this.state.networkID}
-							/>
-						</div>
-						<div className="row">
-							{ this.state.loadingCandidates 
-								? <Loader />
-								: <ViewElection 
-									candidates={this.state.displayedCandidates}
-									displayedElection={this.state.displayedElection}
-									elections={this.state.elections} 
-									renderElection={this.renderElection}
-								/>
-							}
-							<div className="col-md-5">
-							
-							<VotingForm 
-								candidates={this.state.displayedCandidates}
-								addVote={this.addVote}
-							/>
+		const homeProps = (props) => {
+			return (
+				<Home 
+					account={this.state.account} 
+					network={this.state.networkID}
+					elections={this.state.elections} 
+					changeElection={this.changeElection}
+					renderElection={this.renderElection}
+					renderElectionList={this.renderElectionList}
+					displayedCandidates={this.state.displayedCandidates}
+					displayedElection={this.state.displayedElection}
+					//addCandidate={this.addCandidate}
+					addElection={this.addElection}
+					addVote={this.addVote}
+					loadingElections={this.state.loadingElections}
+					loadingCandidates={this.state.loadingCandidates}
+				/>
+			);
+		}
 
-							<CandidateForm
-								elections={this.state.elections}
-								addCandidate={this.addCandidate}
-							/>
-							</div>
-						</div>
-						<div className="row">
-							{ this.state.loadingElections
-								? <Loader />
-								: <Elections 
-									elections={this.state.elections} 
-									changeElection={this.changeElection}
-									renderElection={this.renderElection}
-								/>
-							}
-							<ElectionForm addElection={this.addElection} />
-						</div>
-						
-						{/*<div className='row'>
-							<Instructions />
-						</div>*/}
-					</div>
-				</section>
-				<footer>
-					<p>Made by Morgan & Palmer</p>
-				</footer>
-			</div>
+		const userPageProps = (props) => {
+			return (
+				<UserPage 
+					account={this.state.account} 
+					network={this.state.networkID}
+					elections={this.state.yourElections}
+					loadingElections={this.state.loadingElections}
+					addElection={this.addElection}
+					addCandidate={this.addCandidate}
+					getYourElections={this.getYourElections}
+				/>
+			);
+		}
+
+		// Page Routing
+		return (
+			<Router>
+				<div>
+					<Switch>
+						<Route path="/" exact render={homeProps}/>
+						<Route path="/account" exact component={userPageProps} />
+					</Switch>
+				</div>
+			</Router>
 		);
 	}
 }
+
 
 export default App;

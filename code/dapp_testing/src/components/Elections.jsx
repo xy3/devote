@@ -6,6 +6,10 @@ class Elections extends Component {
 		this.props.changeElection(election.electionId.toNumber())
 		this.props.renderElection()
 	}
+
+	reloadTable = () => {
+		this.props.renderElectionList()
+	}
 	
 	render() {
     	return (
@@ -15,7 +19,7 @@ class Elections extends Component {
     		<table className="table text-light main-table">
     			<thead>
     				<tr>
-    					<th scope="col">Election ID</th>
+    					<th scope="col">#</th>
     					<th scope="col">Name</th>
     					<th scope="col">Candidates</th>
     					<th scope="col">Status</th>
@@ -39,7 +43,7 @@ class Elections extends Component {
 
     			</tbody>
     		</table>
-    		<button type="submit"><span>Refresh</span></button>
+    		<button type="submit" onClick={this.reloadTable}><span>Refresh</span></button>
     		<button type="submit"><span>See all</span></button>
     	</div>
     );

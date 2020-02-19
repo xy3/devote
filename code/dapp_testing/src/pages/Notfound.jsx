@@ -13,8 +13,6 @@ class Notfound extends Component {
 					<div className="container main-body">
 						<div className="row">
 							<SessionInfo 
-								account={this.state.account} 
-								network={this.state.networkID}
 							/>
 						</div>
 					</div>

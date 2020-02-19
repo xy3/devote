@@ -9,9 +9,7 @@ class VotingForm extends Component {
 		    <div className="votingForm">
 		        <form id="votingForm" onSubmit={(event) => {
 					event.preventDefault()
-					if (this.props.addVote(this.candidateId.value)) {
-						event.target.reset();
-					}
+					this.props.addVote(this.candidateId.value)
 		        }}>
 		            <div className="row">
 		                <label htmlFor="name" className="col-sm-3 col-form-label">Candidate name</label>
@@ -26,6 +24,7 @@ class VotingForm extends Component {
 		        </form>
 		        <button type="submit" form="votingForm"><span>Vote</span></button>
 		    </div>
+		    <br/>
 		</div>
 	)}
 }

@@ -35,11 +35,10 @@ class App extends Component {
 		}
 		else {
 			window.alert('Non-Ethereum browser detected. You must install MetaMask to use Devote')
-
-			return false;
+			return false
 		}
 
-		return true;
+		return true
 		
 	}
 
@@ -68,18 +67,16 @@ class App extends Component {
 			this.setState({ networkID })
 
 			// await this.getCandidates()
-			await this.getElections()
+			await this.renderElectionList()
 			await this.renderElection()
 			this.setState({loading: false})
 
 		}
-
-		//election.methods.addCandidate("Ciaran Palmer", "Guardian").send({from: this.state.account});
 	}
 
-	async getElections() {
+	async renderElectionList() {
 		// Get all elections
-		this.setState({ loading: true })
+		this.setState({ loadingElections: true })
 		
 		const electionCount = await this.state.election.methods.electionCount().call()
 		var elections = []
@@ -90,32 +87,19 @@ class App extends Component {
 		}
 
 		this.setState({elections: elections})
+		this.setState({loadingElections: false})
 	}
 
 	async changeElection(electionId) {
+		this.setState({ loadingCandidates: true })
 		this.setState({ displayedElection: electionId});
+		this.setState({ loadingCandidates: false })
 	}
 
-	async getCandidates() {
-		// Get all candidates
-		this.setState({ loading: true })
-		
-		const candidateCount = await this.state.election.methods.candidatesCount().call()
-		var candidates = []
-
-		for (var i = 1; i <= candidateCount; i++) {
-			const candidate = await this.state.election.methods.candidates(i).call()
-			candidates = [...candidates, candidate]
-			// this.setState({ 
-			// 	candidates: [...this.state.candidates, candidate]
-			// })
-		}
-
-		this.setState({candidates: candidates})
-	}
 
 	async renderElection() {
 		// Get all candidates
+		this.setState({ loadingCandidates: true })
 		this.setState({displayedCandidates: []})
 		
 		const candidateCount = await this.state.election.methods.candidatesCount().call()
@@ -129,13 +113,13 @@ class App extends Component {
 		}
 
 		this.setState({displayedCandidates: this.state.displayedCandidates})
+		this.setState({ loadingCandidates: false })
 	}
 
 	addCandidate(candidateName, candidatePosition, electionId) {
 		this.state.election.methods.addCandidate(candidateName, candidatePosition, electionId).send({ from: this.state.account })
 		.once('receipt', (receipt) => {
 			this.renderElection()
-			this.setState({loading: false})
 		})
 		return true
 	}
@@ -143,8 +127,7 @@ class App extends Component {
 	addElection(electionName) {
 		this.state.election.methods.addElection(electionName).send({ from: this.state.account })
 		.once('receipt', (receipt) => {
-			this.getElections()
-			this.setState({loading: false})
+			this.renderElectionList()
 		})
 		return true
 	}
@@ -165,7 +148,8 @@ class App extends Component {
 			candidates: [],
 			elections: [],
 			election: null,
-			loading: true,
+			loadingElections: true,
+			loadingCandidates: true,
 			displayedElection: 1,
 			displayedCandidates: []
 		}
@@ -174,6 +158,7 @@ class App extends Component {
 		this.addCandidate = this.addCandidate.bind(this)	
 		this.changeElection = this.changeElection.bind(this)
 		this.renderElection = this.renderElection.bind(this)
+		this.renderElectionList = this.renderElectionList.bind(this)
 		this.addVote = this.addVote.bind(this)
 	}
 
@@ -188,8 +173,8 @@ class App extends Component {
 								network={this.state.networkID}
 							/>
 						</div>
-						<div className="row" id="electionsList">
-							{ this.state.loading 
+						<div className="row">
+							{ this.state.loadingCandidates 
 								? <Loader />
 								: <ViewElection 
 									candidates={this.state.displayedCandidates}
@@ -212,7 +197,7 @@ class App extends Component {
 							</div>
 						</div>
 						<div className="row">
-							{ this.state.loading 
+							{ this.state.loadingElections
 								? <Loader />
 								: <Elections 
 									elections={this.state.elections} 

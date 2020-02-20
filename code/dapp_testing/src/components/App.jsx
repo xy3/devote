@@ -4,7 +4,7 @@ import Election from '../abis/Election.json';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './Home';
-import SessionInfo from './SessionInfo';
+import ElectionDetails from './ElectionDetails'
 import UserPage from './UserPage';
 
 class App extends Component {
@@ -87,6 +87,11 @@ class App extends Component {
 			if (candidate.electionId.toNumber() == this.state.displayedElection) {
 				this.state.displayedCandidates = [...this.state.displayedCandidates, candidate]
 			}
+		}
+
+		for (var j = 1; j <= candidateCount; j++) {
+			const candidate = await this.state.election.methods.candidates(j).call()
+			this.state.candidates = [...this.state.candidates, candidate]
 		}
 
 		this.setState({ displayedCandidates: this.state.displayedCandidates })
@@ -221,6 +226,14 @@ class App extends Component {
 					<Switch>
 						<Route path="/" exact render={homeProps}/>
 						<Route path="/account" exact component={userPageProps} />
+						<Route path="/elections/:id" render={({match}) => 
+						<ElectionDetails 
+							candidates={this.state.candidates}
+							loadingCandidates={this.state.loadingCandidates}
+							elections={this.state.elections}
+							renderElection={this.renderElection}
+							match={match} 
+						/>} />
 					</Switch>
 				</div>
 			</Router>

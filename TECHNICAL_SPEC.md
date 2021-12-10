@@ -6,29 +6,26 @@
 
 <body>
         <h1 id="h.ex6bojz1pzgd"><span>Devote Technical Specification</span></h1>
-        <h2 id="h.dhhweuoswi7r"><span></span></h2>
-        <hr style="page-break-before:always;display:none;">
-        <h2 id="h.ucd6ta5z1qhm"><span></span></h2>
         <h2 id="h.ucj93wf68ply"><span>Table of Contents</span></h2>
         <ul>
-                <li><span href="#h.1mweeav8xcl9">1. Introduction</a></span></li>
+                <li><span><a href="#h.1mweeav8xcl9">1. Introduction</a></span></li>
                 <li><span><a href="#h.v0eo1g7h1c27">1.1 Overview</a></span></li>
                 <li><span><a href="#h.m1roo59tq5o9">1.2 Glossary</a></span></li>
-                <li><span href="#h.y7lsbepmre09">2. System Architecture</a></span></li>
+                <li><span><a href="#h.y7lsbepmre09">2. System Architecture</a></span></li>
                 <li><span><a href="#h.o760dgd1pjdw">2.1 Blockchain</a></span></li>
                 <li><span><a href="#h.t7m8pyip661v">2.2 ReactJS</a></span></li>
                 <li><span><a href="#h.a6nde6mm8b2">2.3 Database</a></span></li>
-                <li><span href="#h.5h10k3klr0wm">3. High-Level Design</a></span></li>
+                <li><span><a href="#h.5h10k3klr0wm">3. High-Level Design</a></span></li>
                 <li><span><a href="#h.o1v69zszcbwq">High level System overview</a></span></li>
                 <li><span><a href="#h.sr0uyuveqquh">Data flow Diagram</a></span></li>
-                <li><span href="#h.xk1e9aruxodz">4. Problems and Resolution</a></span></li>
+                <li><span><a href="#h.xk1e9aruxodz">4. Problems and Resolution</a></span></li>
                 <li><span><a href="#h.8lmk5cd8g9lt">4.1 Loading Times</a></span></li>
                 <li><span><a href="#h.neh0suedohp5">4.2 Data Storage Problem</a></span></li>
                 <li><span><a href="#h.bn88worm77qu">4.3 Storing Local Data</a></span></li>
                 <li><span><a href="#h.2rxwckytlyct">4.4 Start &amp; End Date Input Errors</a></span></li>
                 <li><span><a href="#h.jlv3st7ujjep">4.5 Changing State whilst Component is Unmounted</a></span></li>
                 <li><span><a href="#h.21n29rlt3u4y">4.6 Asynchronous Functions</a></span></li>
-                <li><span href="#h.p7mboiu4u1vu">5. Installation Guide</a></span></li>
+                <li><span><a href="#h.p7mboiu4u1vu">5. Installation Guide</a></span></li>
                 <li><span><a href="#h.l430q833vsf5">Installation guide video</a></span></li>
                 <li><span><a href="#h.plg721t30hq9">Requirements</a></span></li>
                 <li><span><a href="#h.1u4zr76uahlb">5.1 Installing the Application</a></span></li>

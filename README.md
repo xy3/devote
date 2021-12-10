@@ -1,19 +1,19 @@
-<img src="https://raw.githubusercontent.com/xy3/devote/master/img/logo.png" alt="DEVOTE Logo" width="200"/>
+# Instructions
 
-# DEVOTE
+### Dependencies:
 
-A decentralized voting app for secure, anonymous ballots and elections.
+- truffle
+- npm
+- ganache
 
-## Synopsis
+### Running:
 
-Devote is a web-app based on the Ethereum blockchain for managing elections for example student society member elections. It's main features are transparency, security, immutability and anonymity.
+With Ganache running on port 8545, run the following commands:
 
-Technology stack:
-- **Frontend**: React JS, SCSS, Web3.js, Firebase
-- **Backend**: Solidity (Ethereum contracts), Ganache, Truffle, Firebase NoSQL, GCloud
+```
+cd <PROJECT DIRECTORY>
+truffle migrate --reset
+npm install
+npm run dev
+```
 
-## Please view more information about this project below:
-
-#### [User Manual](https://github.com/xy3/devote/blob/master/USER_MANUAL.md)
-#### [Technical Specification](https://github.com/xy3/devote/blob/master/TECHNICAL_SPEC.md)
-#### [Functional Specification](https://github.com/xy3/devote/blob/master/functional_spec.md)

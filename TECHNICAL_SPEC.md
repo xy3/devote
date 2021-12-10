@@ -152,7 +152,7 @@
         <h1 id="h.t56qqr3bh8zm"><span>3. High-Level Design</span></h1>
         <h2 id="h.o1v69zszcbwq"><span>High level System overview</span></h2>
         <p><span>React components create the user interface and manage requests to and from the
-                        backend. They are located in the directory </span><span>code/src/components</span><span>.</span>
+                        backend. They are located in the directory </span><span>src/components</span><span>.</span>
         </p>
         <p><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 391.00px; height: 361.00px;"><img
                                 alt="High level system Overview"
@@ -167,7 +167,7 @@
                         Smart Contract component interacts with the
                         blockchain and stores information such as candidates and election details.</span></p>
         <p><span>The contract is written in Solidity and is located in the directory
-                </span><span>code/src/contracts/VotingApp.sol</span></p>
+                </span><span>src/contracts/VotingApp.sol</span></p>
         <p><span>React is used as the client user interface. It allows users to easily execute
                         functions and interact with the blockchain.</span></p>
         <p><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 457.33px;"><img

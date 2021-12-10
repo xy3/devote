@@ -1,13 +1,4 @@
-# CA326 Year 3 Project
-
-# Functional Specification
-
-*  **Project Title:** Decentralized Voting App
-*  **Student 1 Name:** Theo Coyne Morgan 	   **ID Number:** 17338811
-*  **Student 2 Name:** Ciarán Palmer 	       **ID Number:** 17425304
-*  **Supervisor:** Annalina Caputo
-
-
+# Devote Functional Specification
 
 # Table of Contents
 

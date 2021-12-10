@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ViewElection extends Component {
     reloadTable = () => {
-        this.props.renderElection()
+        this.props.renderCandidates()
     }
     
     render() {
@@ -26,14 +26,16 @@ class ViewElection extends Component {
                     </thead>
                     <tbody>
                         {candidates.map((candidate, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td>{candidate.name}</td>
-                                    <td>{candidate.position.toString()}</td>
-                                    <td>{candidate.voteCount.toNumber()}</td>
-                                    <td>{candidate.status.toString()}</td>
-                                </tr> 
-                                )
+                            if(candidate.electionId.toNumber() == this.props.displayedElection) {
+                                return (
+                                    <tr key={key}>
+                                        <td>{candidate.name}</td>
+                                        <td>{candidate.position.toString()}</td>
+                                        <td>{candidate.voteCount.toNumber()}</td>
+                                        <td>{candidate.status.toString()}</td>
+                                    </tr> 
+                                    )
+                                }
                             })
                         }
                     </tbody>

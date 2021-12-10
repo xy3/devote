@@ -9,6 +9,7 @@ contract Election {
         uint voteCount;
         string status;
         uint electionId;
+        bool deleted;
         // uint election_id;
         // string election_status; // open or closed
         // string election_result; // elected or not
@@ -25,9 +26,11 @@ contract Election {
         uint electionId;
         string name;
         uint totalCandidates;
+        uint totalValidCandidates;
         string electionStatus;
         mapping(address => bool) voters;
-
+        address admin;
+        bool closed;
     }
 
     // Elections mapping
@@ -35,7 +38,7 @@ contract Election {
     uint public electionCount;
 
     // Election Admins
-    mapping(uint => address) public admins;
+    // mapping(uint => address) public admins;
 
     // Candidate mapping
     mapping(uint => Candidate) public candidates;
@@ -43,7 +46,7 @@ contract Election {
 
     // Constructor
     constructor() public {
-        addElection("Test Election 1");
+        /*addElection("Test Election 1");
         addElection("Test Election 2");
 
         addCandidate("Test Candidate 1", "NA", 1);
@@ -51,22 +54,35 @@ contract Election {
         addCandidate("Test Candidate 3", "NA", 1);
 
         addCandidate("Test Candidate 4", "NA", 2);
-        addCandidate("Test Candidate 5", "NA", 2);
+        addCandidate("Test Candidate 5", "NA", 2);*/
+    
     }
 
     function addElection(string memory _name) public {
         electionCount++;
-        elections[electionCount] = Elections(electionCount, _name, 0, "Open");
-        admins[electionCount] = msg.sender;
+        elections[electionCount] = Elections(electionCount, _name, 0, 0,  "Open", msg.sender, false);
+        // admins[electionCount] = msg.sender;
+    }
+
+    function editElectionName(string memory _name, uint _electionId) public {
+        require(elections[_electionId].admin == msg.sender, "You do not have permissions to change this election");
+        elections[_electionId].name = _name;
     }
 
     function addCandidate(string memory _name, string memory _position, uint _electionId) public {
-        require(admins[_electionId] == msg.sender, "You do not have permissions to add candidates to this election.");
+        require(elections[_electionId].admin == msg.sender, "You do not have permissions to add candidates to this election.");
 
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, _position, 0, "Running", _electionId);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, _position, 0, "Running", _electionId, false);
         elections[_electionId].totalCandidates++;
+        elections[_electionId].totalValidCandidates++;
         emit CandidateAdded(candidatesCount, _name, _position, msg.sender);
+    }
+
+    function deleteCandidate(uint _candidateId) public {
+        require(elections[candidates[_candidateId].electionId].admin == msg.sender, "You do not have permissions to delete candidates.");
+        candidates[_candidateId].deleted = true;
+        elections[candidates[_candidateId].electionId].totalValidCandidates--;
     }
 
     function vote(uint _candidateId, uint _electionId) public {

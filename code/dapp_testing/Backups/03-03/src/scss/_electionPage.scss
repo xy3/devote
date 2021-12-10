@@ -1,0 +1,249 @@
+
+/*=====================
+= Start election style
+======================*/
+
+.datePicker table {
+	display: none;
+}
+
+.datePicker .rdt input {
+	background-color: $bg-color;
+	border: 0;
+	width: 100%;
+	color: white;
+	margin: 10px 0px;
+}
+
+#startEndElection {
+	margin-top: 50px;
+}
+
+#datePickerEnd {
+	margin: 0px;
+	padding: 0px;
+}
+
+#submitStartEndDates{
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+.electionDatesLabel {
+	margin: 0px;
+	padding: 0px;
+}
+
+#startElection {
+	margin-left: 10px;
+}
+
+#endElection {
+	margin-left: 10px;
+}
+
+.electionStatusBG {
+	background: $bg-lighter;
+	padding: 2px;
+}
+
+.electionStatus {
+	background: $bg-color;
+	padding-bottom: 20px;
+}
+
+.electionStatus ul li {
+	color: white;
+	background-color: $bg-color;
+}
+
+.list-group-item {
+	border: 1px solid $bg-lighter;
+}
+
+#active {
+	color: #5fdba7;
+}
+
+#inactive {
+	color: #f54242;
+}
+
+#hiddenText {
+	color: $bg-color;
+}
+
+#pending {
+	color: #42b0f5;
+}
+
+#awaiting {
+	color: $color2;
+}
+
+#electionStatusTitle {
+	margin: 20px 0;
+	width: 100%;
+	margin-left: 33%;
+	font-size: 1.2em;
+}
+
+#electionStatusTitle2 {
+	margin: 20px 0;
+	width: 100%;
+	margin-left: 38%;
+	font-size: 1.2em;
+}
+
+#electionStatusTitle3 {
+	margin: 20px 0;
+	width: 100%;
+	margin-left: 39%;
+	font-size: 1.2em;
+}
+
+#addVoteSpacing {
+	margin-top: 90px;
+	padding: 0px;
+}
+
+#lightText {
+	color: rgb(151, 151, 151);
+	margin-right: 15px;
+}
+
+#votedFor {
+	text-align: center;
+	padding: 0px;
+}
+
+
+
+#votedColor {
+	color: $color2;
+}
+
+#electionEdit {
+	margin-top: 20px;
+}
+
+.modal-content{
+	background: $bg-color;
+	color: white;
+	border: 3px solid $bg-lighter
+}
+
+.modal-header {
+	border-bottom: 3px solid $bg-lighter;
+	font-weight: bold;
+	color: white;
+}
+
+.modal-header h5 {
+	font-size: 2em;
+}
+
+.modal-footer {
+	border-top: 3px solid $bg-lighter;
+}
+
+// #darkened {
+// 	color: rgb(151, 151, 151);
+// 	padding: 0 30px;
+// }
+
+.dateErrors {
+	margin-top: 20px;
+	color: #f54242;
+	margin-left: 45px;
+}
+
+.backModal {
+	width: 88%;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.backModal button {
+	display: block;
+	margin: 0px;
+	width: 100%;
+}
+
+#filter {
+	margin-left: 10px;
+	background-color: $bg-lighter;
+	width: 60px;
+	height: 25px;
+	border-radius: 5px;
+}
+
+#darkened {
+	color: rgb(151, 151, 151);
+	padding: 0 30px;
+}
+
+#darkened2 {
+	color: rgb(151, 151, 151);
+}
+
+#startElection {
+	margin-bottom: 10px;
+	margin-left: 0;
+	padding: 3px;
+	background-color: $bg-color;
+	padding-left: 10px;
+	color: #fff;
+	width: 100%;
+	border-radius: 5px;
+}
+
+#longBar {
+	height: 2px;
+	background-color: $bg-lighter;
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+#container {
+	display: block;
+}
+
+#greyBar {
+	background-color: $bg-color;
+	height: 0px;
+	margin-top: 20px;
+}
+
+#removePadding {
+	padding: 0px;
+}
+
+#accountInfo {
+	margin-left: 15px;
+	color: white;
+}
+
+.containerHome {
+	width: 80%;
+	margin: auto;
+}
+
+#rowWidth {
+	width: 100%;
+}
+
+#electionMargin {
+	margin-top: 60px;
+}
+
+.fa-question-circle-o {
+	font-size: 20px;
+	margin-right: 3px;
+}
+
+#instructionSpace {
+	margin-top: 10px;
+}

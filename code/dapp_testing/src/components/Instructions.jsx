@@ -3,16 +3,17 @@ import React, { Component } from 'react';
 class Instructions extends Component {
   render() {
 	return (
-		<div className="col-md-12">
-			<h2>Voting Instructions</h2>
-			<hr />
-			<div className="textbox" id="votingInstructions">
-				<ul>
+		<div>
+			<h2>Instructions</h2>
+			<hr/>
+			<div className="textbox">
+				<ol>
 					<li>Make sure Ganache is running on port 8545</li>
 					<li>Have Metamask running on localhost:8545</li>
 					<li>Refresh this page</li>
-				</ul>
+				</ol>
 			</div>
+			
 		</div>
 	);
   }

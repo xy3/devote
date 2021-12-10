@@ -460,18 +460,18 @@ In this section, we further illustrate the voting system with the use of a data-
 
 Below is a Data Flow Diagram of the entire decentralized voting system. It illustrates the processes that users of the system can make, and how the data is used in the system.
 
-![Dataflow Diagram](https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/Devote_DFD.png)
+![Dataflow Diagram](https://raw.githubusercontent.com/xy3/devote/master/img/Devote_DFD.png)
 
 ## Context Diagram for Election Privileges
 
-![Context diagram](https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/context_diagram.png)
+![Context diagram](https://raw.githubusercontent.com/xy3/devote/master/img/context_diagram.png)
 
 
 # 6. Preliminary Schedule
 
 Below is a preliminary Gantt chart illustrating our aim for start and end dates for the project tasks and goals. They could possibly change along the way due to certain tasks being more or less difficult than we have estimated.
 
-![Gantt chart](https://gitlab.computing.dcu.ie/coynemt2/2020-ca326-tcoynemorgan-DecentralizedVotingApp/raw/master/functional_spec/gantt.png)
+![Gantt chart](https://raw.githubusercontent.com/xy3/devote/master/img/gantt.png)
 
 
 # 7. Appendices

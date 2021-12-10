@@ -1,10 +1,6 @@
-## CA326 Year 3 Project Proposal Form
-**SECTION A**
+## Devote Project Proposal
 
-*  **Project Title:** Decentralized Voting App
-*  **Student 1 Name:** Theo Coyne Morgan 	   **ID Number:** 17338811
-*  **Student 2 Name:** Ciarán Palmer 	       **ID Number:** 17425304
-*  **Staff Member Consulted:** Annalina Caputo
+*  **Project Title:** Decentralized Voting App (DeVote)
 
 ### Description
 

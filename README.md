@@ -12,8 +12,8 @@ Devote is a web-app based on the Ethereum blockchain for managing elections for 
 ## Please read more about Devote in the following:
 
 ### [Functional Specification](https://github.com/xy3/devote/blob/master/functional_spec.md)
-### [Technical Specification](https://github.com/xy3/devote/blob/master/technical_spec.md)
-### [User Manual](https://github.com/xy3/devote/blob/master/user_manual.md)
+### [Technical Specification](https://github.com/xy3/devote/blob/master/TECHNICAL_SPEC.md)
+### [User Manual](https://github.com/xy3/devote/blob/master/USER_MANUAL.md)
 
 # Instructions
 

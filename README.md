@@ -7,6 +7,7 @@ A decentralized voting app based on the Ethereum blockchain.
 Devote is a web-app based on the Ethereum blockchain for managing elections for example student society member elections. Core features are transparency, security, immutability and anonymity.
 
 **Frontend**: React JS, SCSS, Web3.js, Firebase 
+
 **Backend**: Solidity, Ganache, Truffe, NoSQL, GCloud
 
 ## Please read more about Devote in the following:
